@@ -1,0 +1,197 @@
+* {
+  font-family: sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+.App {
+  height: 100%;
+}
+
+.fill-window {
+  height: 100%;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.timeline {
+  position: relative;
+  width: 100%;
+  margin-top: 20px;
+  list-style-type: none;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+
+  margin-top: 100px;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    content: ' ';
+    display: block;
+    width: 6px;
+    height: 100%;
+    background-color: rgb(100, 100, 100);
+  }
+
+  li {
+
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    
+
+    // &::after {
+    //   content: "";
+    //   display: block;
+    //   height: 0;
+    //   clear: both;
+    //   visibility: hidden;
+    // }
+
+    .badge-wrapper {
+      position: relative;
+      z-index: 100;
+
+      .badge {
+        cursor: pointer;
+        border: none;
+        padding: 10px 20px;
+        box-shadow: 0 0 1px rgba(0,0,0,0.20);
+        background-color: #73e4e4;
+        border-radius: 10px;
+        transition: all 200ms ease-out;
+        font-size: 16px;
+
+        &:hover, &.active {
+          font-size: 22px;
+          background-color: #549b9b;
+          color: #FFF;
+        }
+
+      }
+
+    }
+
+    .timeline-year-board {
+
+      padding: 10px;
+      width: calc(50vw - 6em);
+      height: auto;
+      position: relative;
+      left: 2em;
+      border: 1px solid black;
+
+
+      .title {
+        text-align: center;
+      }
+
+      .table-responsive {
+        max-width: 100%;
+        overflow-x: scroll;
+      }
+
+      table {
+        height: 100%;
+        border-collapse: collapse;
+
+        th, td {
+          border: 0.01rem solid #cccccc80;
+          box-sizing: border-box;
+          width: 100%;
+          min-width: 70px;
+          border-spacing: 0;
+          margin: 0;
+          padding: 0;
+
+          .day-slot{
+            position: relative;
+
+            .event-slot {
+              position: relative;
+              box-sizing: border-box;
+
+              .event-card {
+                z-index: 5;
+                overflow: hidden;
+                padding:0;
+                display: flex;
+                justify-content: start;
+                position: absolute;
+                background-color: cyan;
+                color: black;
+                right: 0;
+                left: 0;
+                width: 100%;
+                border-radius: 4px;
+                box-sizing: border-box;
+                transition: all 200ms ease-out;
+
+                .event-title {
+                  padding: 0 5px;
+                  font-size: 14px;
+                  font-weight: 300;
+                }
+
+                .next-month-sign {
+                  margin-left: 2px;
+                }
+
+                .next-month-sign {
+                  margin-right: 2px;
+                }
+
+                &:hover {
+                  cursor: pointer;
+                  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+                  .event-title {
+                    font-weight: 400;
+                  }
+                }
+
+                .edit-form {
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: center;
+                  gap: 5px;
+                  width: 100%;
+                  padding: 0 5px;
+                  
+                  textarea {
+                    resize: none;
+                    width: 100%;
+                  }
+
+                }
+
+              }
+
+              &.edit {
+                z-index: 120;
+              }
+
+            }
+
+            
+          }
+
+        }
+        
+      }
+
+    }
+
+  }
+
+}
