@@ -2,6 +2,8 @@ import { ChangeEvent, useState } from "react";
 import { CalendarSettings } from "./constants";
 import { CalendarEvent } from "./timelineItems";
 import { useEvents } from "./AppContext";
+import { useForm } from "react-hook-form";
+import { format, parseISO } from "date-fns";
 
 const CardEventContent = ({ event, toggleEditMode }: { event: CalendarEvent, toggleEditMode: () => void }) => {
 
@@ -26,33 +28,56 @@ const CardEventContent = ({ event, toggleEditMode }: { event: CalendarEvent, tog
 
 const CardEdit = ({ event, toggleEditMode }: { event: CalendarEvent, toggleEditMode: () => void }) => {
 
-    const [newEvent, setNewEvent] = useState(event);
+    const { editEvent } = useEvents();
 
-    const {editEvent} = useEvents();
+    const width = 300;
 
-    const width = (CalendarSettings.slotWidth * (event.slotSize ?? 1)) < 200 ? 200 : (CalendarSettings.slotWidth * (event.slotSize ?? 1));
+    const { register, handleSubmit, formState, watch } = useForm<Partial<CalendarEvent>>({
+        defaultValues: {
+            name: event.name,
+            start: event.start.toISOString().substring(0, 10) as any,
+            end: event.end.toISOString().substring(0, 10) as any,
+        }
+    });
 
-    const handleNameChange = (change: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setNewEvent(prev => ({...prev, name: change.target.value}));
-    }
+    const watchField = watch(['start', 'end']);
 
-    const save = () => {
-        editEvent(newEvent);
+    const save = (data: any) => {
+    
+        editEvent({
+            ...event,
+            name: data.name,
+            start: parseISO(data.start),
+            end: parseISO(data.end),
+        });
         toggleEditMode();
     }
 
     return <div key={event.id} style={
         {
             width: width,
-            height: 70,
+            height: 150,
             top: event.lane === 0 ? 0 : (CalendarSettings.slotHeight * event.lane!)
         }
     }
         title={event.name} className="event-card">
-        <div className="edit-form">
-            <textarea onChange={handleNameChange} value={newEvent.name}></textarea>
-            <button onClick={save} >Save</button>
-        </div>
+            Editind event {event.id}
+        <form onSubmit={handleSubmit(save)} className="edit-form">
+            <textarea {...register('name', { required: true })}></textarea>
+            <div style={{ display: 'flex', gap: 5, width: '100%' }}>
+                
+                <input style={{ flex: 1 }} type="date" 
+                {...register('start', { required: true, validate: (startDate) => startDate! <= watchField[1]! })} />
+
+                <input style={{ flex: 1 }} type="date" 
+                {...register('end', { required: true, validate: (endDate) => endDate! <= watchField[0]! })} />
+            </div>
+            <div style={{ display: 'flex', gap: 5, width: '100%' }}>
+                <button disabled={!formState.isValid} type="submit" >Save</button>
+                <button onClick={toggleEditMode} type="submit" >close</button>
+
+            </div>
+        </form>
     </div>
 }
 

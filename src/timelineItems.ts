@@ -102,13 +102,13 @@ const timelineItems: RawEvents[] = [
     name: "Fifth item with a super long name"
   },
   {
-    id: 15,
+    id: 75,
     start: "2022-11-05",
     end: "2022-11-07",
     name: "Fifth item with a super long name"
   },
   {
-    id: 15,
+    id: 71,
     start: "2023-10-10",
     end: "2023-10-12",
     name: "Fifth item with a super long name"

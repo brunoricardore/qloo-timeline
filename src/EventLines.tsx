@@ -24,7 +24,8 @@ const EventLines = ({ year }: { year: string, events: RawEvents[] }) => {
         const allEvents = structuredClone(events);
         const lastMonthEvents = allEvents.filter((e: CalendarEvent) => {
             const dateToCompare = parseISO(`${year}-${monthString}-01`);
-            return e.end.getMonth() === dateToCompare.getMonth() && e.start.getMonth() < dateToCompare.getMonth();
+            return year === e.start.getFullYear().toString() &&
+                e.end.getMonth() === dateToCompare.getMonth() && e.start.getMonth() < dateToCompare.getMonth();
         }).map((event: CalendarEvent) => {
             event.start = parseISO(`${year}-${monthString}-01`);
             event.slotSize = intervalToDuration({
@@ -44,6 +45,9 @@ const EventLines = ({ year }: { year: string, events: RawEvents[] }) => {
     }
 
     events = orderBy(events, ['start', 'slotSize'], ['asc', 'desc']);
+
+    console.log(events);
+    
 
     const daysOfMonth = (year: string, month: number): CalendarDay[] => {
 
@@ -104,7 +108,7 @@ const EventLines = ({ year }: { year: string, events: RawEvents[] }) => {
         </div>
 
         <div className="table-responsive">
-            <table>
+            <table className='steelBlueCols'>
                 <thead>
                     <tr style={{ display: 'flex' }}>
                         {
