@@ -43,7 +43,7 @@ const CardEdit = ({ event, toggleEditMode }: { event: CalendarEvent, toggleEditM
     const watchField = watch(['start', 'end']);
 
     const save = (data: any) => {
-    
+
         editEvent({
             ...event,
             name: data.name,
@@ -61,16 +61,16 @@ const CardEdit = ({ event, toggleEditMode }: { event: CalendarEvent, toggleEditM
         }
     }
         title={event.name} className="event-card">
-            Editind event {event.id}
+        Editind event {event.id}
         <form onSubmit={handleSubmit(save)} className="edit-form">
             <textarea {...register('name', { required: true })}></textarea>
             <div style={{ display: 'flex', gap: 5, width: '100%' }}>
-                
-                <input style={{ flex: 1 }} type="date" 
-                {...register('start', { required: true, validate: (startDate) => startDate! <= watchField[1]! })} />
 
-                <input style={{ flex: 1 }} type="date" 
-                {...register('end', { required: true, validate: (endDate) => endDate! <= watchField[0]! })} />
+                <input style={{ flex: 1 }} type="date"
+                    {...register('start', { required: true, validate: (startDate) => startDate! <= watchField[1]! })} />
+
+                <input style={{ flex: 1 }} type="date"
+                    {...register('end', { required: true, validate: (endDate) => endDate! <= watchField[0]! })} />
             </div>
             <div style={{ display: 'flex', gap: 5, width: '100%' }}>
                 <button disabled={!formState.isValid} type="submit" >Save</button>

@@ -46,9 +46,6 @@ const EventLines = ({ year }: { year: string, events: RawEvents[] }) => {
 
     events = orderBy(events, ['start', 'slotSize'], ['asc', 'desc']);
 
-    console.log(events);
-    
-
     const daysOfMonth = (year: string, month: number): CalendarDay[] => {
 
         let firstDay = parseISO(`${year}-${monthString}-01`);

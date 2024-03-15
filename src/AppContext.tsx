@@ -15,7 +15,7 @@ const CalendarContextProvider = (props: any) => {
 
     const getInitialEvents = () => {
         return timelineItems.map(event => {
-            const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+            // const randomColor = Math.floor(Math.random() * 16777215).toString(16);
 
             const startDate = parseISO(event.start);
             const endDate = parseISO(event.end);
@@ -26,7 +26,7 @@ const CalendarContextProvider = (props: any) => {
                 id: event.id,
                 start: startDate,
                 end: endDate,
-                bgColor: `#${randomColor}`,
+                bgColor: `rgba(55, 136, 216, .9)`,
                 slotSize: diffDays,
                 name: event.name
             } as CalendarEvent;
