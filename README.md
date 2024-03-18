@@ -1,6 +1,8 @@
 # Hello Qloo Team!
 The timeline and the calendar were created sing the most JS/TS as possible, to do not support my work only on CSS features.
 
+**Please use, Node version >=18**
+
 To run the project:
 
  1. run `npm install` inside the root of the project
